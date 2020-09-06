@@ -16,7 +16,6 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
 
   @override
   ErrorResponse convertError(error) {
-    print(error);
     if (error is DioError) {
       if (error.type == DioErrorType.CANCEL) {
         return null; //Don't set an error when a call is cancelled

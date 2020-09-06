@@ -1,9 +1,7 @@
-## [1.0.0] - 6 September 2020
+## [1.0.1] - 6 September 2020
 
+* Remove print function calls
 * Update to version 1.0 to indicate "Is used in production"
-
-## [0.5.1] - 6 September 2020
-
 * Add ability to update error messages after creation
 
 ## [0.5.0] - 5 September 2020

@@ -1,6 +1,6 @@
 name: apn_http
 description: An Appnormal package centered around providing tools for setting up http server calls.
-version: 1.0.0
+version: 1.0.1
 homepage: https://appnormal.com
 
 environment:
