@@ -89,4 +89,8 @@ class ApnHttpClient<T> {
     dio.httpClientAdapter = adapter;
     client = clientBuilder(dio);
   }
+
+  void setErrorMessages(Map<int, String> errorMessages) {
+    dioErrorMessages = errorMessages;
+  }
 }

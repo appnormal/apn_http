@@ -1,3 +1,7 @@
+## [0.5.1] - 6 September 2020
+
+* Add ability to update error messages after creation
+
 ## [0.5.0] - 5 September 2020
 
 * Utility to refresh http client on the fly (usefull e.g. when changing a header for all http calls)
