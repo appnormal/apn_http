@@ -59,7 +59,6 @@ class ApnHttpClient<T> {
     dio.options.receiveTimeout = 20000;
 
     // * Default headers
-    dio.options.headers['Content-Type'] = 'application/json';
     dio.options.headers['Accept'] = 'application/json';
 
     // * Locale name is nl_NL (languageCode_countryCode)

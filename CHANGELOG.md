@@ -1,3 +1,7 @@
+## [1.0.2] - 8 September 2020
+
+* Remove default contentType header
+
 ## [1.0.1] - 6 September 2020
 
 * Remove print function calls
