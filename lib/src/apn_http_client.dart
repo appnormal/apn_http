@@ -15,6 +15,7 @@ class ApnHttpClient<T> {
   String baseUrl;
   Map<String, dynamic> headers;
   HttpClientAdapter adapter;
+  ValueSetter<Dio> onDioReady;
   RestClientBuilder<T> clientBuilder;
   bool isDebug;
   T client;
@@ -70,6 +71,11 @@ class ApnHttpClient<T> {
     headers?.forEach((key, value) {
       dio.options.headers[key] = value;
     });
+
+    // * If there is a callback to extend it, call it
+    if(onDioReady != null){
+      onDioReady(dio);
+    }
 
     client = clientBuilder(dio);
   }

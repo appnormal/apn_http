@@ -1,3 +1,7 @@
+## [1.0.3] - 8 September 2020
+
+* Make dio extendable after initial init
+
 ## [1.0.2] - 8 September 2020
 
 * Remove default contentType header
