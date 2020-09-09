@@ -25,6 +25,7 @@ class ApnHttpClient<T> {
     @required this.baseUrl,
     this.headers,
     this.isDebug = false,
+    this.onDioReady,
     this.adapter,
     Map<int, String> errorMessages,
   }) {

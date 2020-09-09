@@ -1,4 +1,4 @@
-## [1.0.3] - 8 September 2020
+## [1.0.4] - 8 September 2020
 
 * Make dio extendable after initial init
 
