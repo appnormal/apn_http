@@ -10,7 +10,7 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
   final _cancelTokens = <CancelToken>[];
   bool get isLoadingFirstData => isLoading && paginationInfo == null;
 
-  bool get hasMorePages => paginationInfo != null
+  bool get hasMorePages => paginationInfo != null && enablePagination
       ? paginationInfo.currentPage < paginationInfo.lastPage
       : false;
 

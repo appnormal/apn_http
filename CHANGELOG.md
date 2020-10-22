@@ -1,3 +1,7 @@
+## [1.0.5] - 22 October 2020
+
+* Add the ability to disable pagination
+
 ## [1.0.4] - 8 September 2020
 
 * Make dio extendable after initial init
