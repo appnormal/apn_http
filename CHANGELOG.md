@@ -1,3 +1,7 @@
+## [1.0.6] - 26 October 2020
+
+* Add a default value for pagination info when pagination is disabled
+
 ## [1.0.5] - 22 October 2020
 
 * Add the ability to disable pagination
