@@ -1,3 +1,7 @@
+## [1.0.7] - 6 November 2020
+
+* Add extra loggin options
+
 ## [1.0.6] - 26 October 2020
 
 * Add a default value for pagination info when pagination is disabled
