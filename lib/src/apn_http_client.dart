@@ -1,12 +1,13 @@
 library apn_http;
 
-import 'dart:io';
-
 import 'package:apn_http/src/error_messages.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+import 'dart:io';
 
 typedef RestClientBuilder<T> = T Function(Dio dio);
 
@@ -63,10 +64,12 @@ class ApnHttpClient<T> {
     // * Default headers
     dio.options.headers['Accept'] = 'application/json';
 
-    // * Locale name is nl_NL (languageCode_countryCode)
-    final localeNameParts = Platform.localeName?.split('_');
-    if (localeNameParts?.length == 2) {
-      dio.options.headers['Accept-Language'] = localeNameParts[0].toLowerCase();
+    if(!kIsWeb) {
+      // * Locale name is nl_NL (languageCode_countryCode)
+      final localeNameParts = Platform.localeName?.split('_');
+      if (localeNameParts?.length == 2) {
+        dio.options.headers['Accept-Language'] = localeNameParts[0].toLowerCase();
+      }
     }
 
     headers?.forEach((key, value) {
@@ -74,7 +77,7 @@ class ApnHttpClient<T> {
     });
 
     // * If there is a callback to extend it, call it
-    if(onDioReady != null){
+    if (onDioReady != null) {
       onDioReady(dio);
     }
 
