@@ -7,12 +7,23 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
   var _loadingPage = 0;
 
   PaginationInfo paginationInfo;
+
+  ApiBaseState() {
+    //If we don't want to use pagination, use a default value
+    if (!enablePagination) {
+      paginationInfo = PaginationInfo()
+        ..currentPage = 1
+        ..lastPage = 1
+        ..total = data.length;
+    }
+  }
+
   final _cancelTokens = <CancelToken>[];
+
   bool get isLoadingFirstData => isLoading && paginationInfo == null;
 
-  bool get hasMorePages => paginationInfo != null
-      ? paginationInfo.currentPage < paginationInfo.lastPage
-      : false;
+  bool get hasMorePages =>
+      paginationInfo != null && enablePagination ? paginationInfo.currentPage < paginationInfo.lastPage : false;
 
   @override
   ErrorResponse convertError(error) {
@@ -60,8 +71,7 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
   Future<ApiBaseState> dispatchLoadNewPage({int page = 1}) async {
     if (_loadingPage == page) return this;
     _loadingPage = page;
-    final state =
-        await dispatch<LoadDataEvent, ApiBaseState>(loadPageEvent(page: page));
+    final state = await dispatch<LoadDataEvent, ApiBaseState>(loadPageEvent(page: page));
     state._loadingPage = 0;
     return state;
   }
@@ -76,8 +86,7 @@ abstract class LoadDataEvent<V, T extends PageResponse<V>> extends ApiEvent<V> {
 
   @override
   Future<void> handle() async {
-    final apiResponse =
-        await state.apiCall<T>((cancelToken) => getData(cancelToken));
+    final apiResponse = await state.apiCall<T>((cancelToken) => getData(cancelToken));
 
     // Cancelled, no UI update, just exit
     if (apiResponse.cancelToken.isCancelled) {

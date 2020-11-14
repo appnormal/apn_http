@@ -43,11 +43,18 @@ class ApnHttpClient<T> {
     // * Logging on non production
     if (isDebug) {
       dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: true,
+      ));
+    }else{
+      dio.interceptors.add(PrettyDioLogger(
         requestHeader: false,
         requestBody: false,
         responseBody: false,
         responseHeader: false,
-        compact: true,
+        compact: true
       ));
     }
 
