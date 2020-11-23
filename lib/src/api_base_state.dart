@@ -1,20 +1,18 @@
 import 'package:apn_http/apn_http.dart';
 import 'package:apn_state/apn_state.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
   var data = <T>[];
   var _loadingPage = 0;
 
-  PaginationInfo paginationInfo;
+  PaginationInfo? paginationInfo;
 
   ApiBaseState() {
     //If we don't want to use pagination, use a default value
     if (!enablePagination) {
-      paginationInfo = PaginationInfo()
-        ..currentPage = 1
-        ..lastPage = 1
-        ..total = data.length;
+      paginationInfo = PaginationInfo();
     }
   }
 
@@ -22,11 +20,16 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
 
   bool get isLoadingFirstData => isLoading && paginationInfo == null;
 
-  bool get hasMorePages =>
-      paginationInfo != null && enablePagination ? paginationInfo.currentPage < paginationInfo.lastPage : false;
+  bool get hasMorePages {
+    if (paginationInfo == null || !enablePagination) {
+      return false;
+    }
+
+    return paginationInfo!.currentPage < paginationInfo!.lastPage;
+  }
 
   @override
-  ErrorResponse convertError(error) {
+  ErrorResponse? convertError(error) {
     if (error is DioError) {
       if (error.type == DioErrorType.CANCEL) {
         return null; //Don't set an error when a call is cancelled
@@ -35,8 +38,10 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
         emit(UserShouldLogoutEvent());
       }
       return error.toErrorResponse;
-    } else {
+    } else if(kReleaseMode){
       return ErrorResponse.fromMessage('An unexpected error occured: $error');
+    } else{
+      throw error;
     }
   }
 
@@ -64,16 +69,21 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
     super.dispose();
   }
 
-  LoadDataEvent loadPageEvent({int page = 1}) {
+  LoadDataEvent? loadPageEvent({int page = 1}) {
     return null;
   }
 
   Future<ApiBaseState> dispatchLoadNewPage({int page = 1}) async {
     if (_loadingPage == page) return this;
     _loadingPage = page;
-    final state = await dispatch<LoadDataEvent, ApiBaseState>(loadPageEvent(page: page));
-    state._loadingPage = 0;
-    return state;
+    final event = loadPageEvent(page: page);
+    if (event != null) {
+      final state = await dispatch<LoadDataEvent, ApiBaseState>(event);
+      state._loadingPage = 0;
+      return state;
+    } else {
+      return this;
+    }
   }
 }
 
@@ -98,10 +108,13 @@ abstract class LoadDataEvent<V, T extends PageResponse<V>> extends ApiEvent<V> {
       if (page == 1) {
         state.data.clear();
       }
+
       state.data += response.data;
       state.paginationInfo = response.meta;
-    } else {
-      state.paginationInfo?.lastPage = state.paginationInfo?.currentPage;
+    } else if (state.paginationInfo != null) {
+      state.paginationInfo = state.paginationInfo?.copyWith(
+        lastPage: state.paginationInfo!.currentPage,
+      );
     }
 
     //Update UI with a new page of data
@@ -112,15 +125,15 @@ abstract class LoadDataEvent<V, T extends PageResponse<V>> extends ApiEvent<V> {
 }
 
 abstract class PageResponse<T> {
-  List<T> data;
-  PaginationInfo meta;
+  late List<T> data;
+  late PaginationInfo meta;
 }
 
 class ApiResponse<T> {
   final CancelToken cancelToken;
   final T data;
 
-  ApiResponse({this.cancelToken, this.data});
+  ApiResponse({required this.cancelToken, required this.data});
 }
 
 typedef CancellableApiCall<T> = Future<T> Function(CancelToken cancelToken);

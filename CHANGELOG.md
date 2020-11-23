@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety] - 22 November 2020
+
+* Changed package to be compatible with the new nullsafety features of dart 2.12
+
 ## [1.0.8] - 14 November 2020
 
 * Add better support for web

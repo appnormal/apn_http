@@ -13,22 +13,24 @@ typedef RestClientBuilder<T> = T Function(Dio dio);
 
 class ApnHttpClient<T> {
   final dio = new Dio();
-  String baseUrl;
-  Map<String, dynamic> headers;
-  HttpClientAdapter adapter;
-  ValueSetter<Dio> onDioReady;
-  RestClientBuilder<T> clientBuilder;
-  bool isDebug;
-  T client;
+  final String baseUrl;
+  final Map<String, dynamic>? headers;
+  final RestClientBuilder<T> clientBuilder;
+  final bool isDebug;
+
+  late T client;
+
+  HttpClientAdapter? adapter;
+  ValueSetter<Dio>? onDioReady;
 
   ApnHttpClient({
-    @required this.clientBuilder,
-    @required this.baseUrl,
+    required this.clientBuilder,
+    required this.baseUrl,
     this.headers,
     this.isDebug = false,
     this.onDioReady,
     this.adapter,
-    Map<int, String> errorMessages,
+    Map<int, String>? errorMessages,
   }) {
     // * Add all custom errorMessages
     if (errorMessages != null) {
@@ -48,14 +50,9 @@ class ApnHttpClient<T> {
         responseBody: true,
         responseHeader: true,
       ));
-    }else{
+    } else {
       dio.interceptors.add(PrettyDioLogger(
-        requestHeader: false,
-        requestBody: false,
-        responseBody: false,
-        responseHeader: false,
-        compact: true
-      ));
+          requestHeader: false, requestBody: false, responseBody: false, responseHeader: false, compact: true));
     }
 
     // * Json decoding in the background via compute
@@ -71,10 +68,10 @@ class ApnHttpClient<T> {
     // * Default headers
     dio.options.headers['Accept'] = 'application/json';
 
-    if(!kIsWeb) {
+    if (!kIsWeb) {
       // * Locale name is nl_NL (languageCode_countryCode)
-      final localeNameParts = Platform.localeName?.split('_');
-      if (localeNameParts?.length == 2) {
+      final localeNameParts = Platform.localeName.split('_');
+      if (localeNameParts.length == 2) {
         dio.options.headers['Accept-Language'] = localeNameParts[0].toLowerCase();
       }
     }
@@ -85,13 +82,13 @@ class ApnHttpClient<T> {
 
     // * If there is a callback to extend it, call it
     if (onDioReady != null) {
-      onDioReady(dio);
+      onDioReady!(dio);
     }
 
     client = clientBuilder(dio);
   }
 
-  void setHeader(String key, String value) {
+  void setHeader(String key, String? value) {
     if (value == null) {
       dio.options.headers.remove(key);
     } else {

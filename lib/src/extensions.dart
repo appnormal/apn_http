@@ -12,10 +12,10 @@ extension DioErrorExtension on DioError {
       }
 
       if (dioErrorMessages.containsKey(response.statusCode)) {
-        return ErrorResponse.fromMessage(dioErrorMessages[response.statusCode]);
+        return ErrorResponse.fromMessage(dioErrorMessages[response.statusCode]!);
       }
     }
 
-    return ErrorResponse.fromMessage(dioErrorMessages[0]);
+    return ErrorResponse.fromMessage(dioErrorMessages[0]!);
   }
 }
