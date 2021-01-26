@@ -1,0 +1,12 @@
+// * We are using fvm to easily get the right sdk version
+// * Install with the following command `pub global activate fvm`
+// * More instructions at: https://github.com/leoafarias/fvm
+{
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
+    "dart.flutterSdkPaths": [
+        ".fvm/flutter_sdk"
+    ],
+    "search.exclude": {
+        ".fvm/**/*": true,
+    },
+}
