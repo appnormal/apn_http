@@ -1,3 +1,7 @@
+## [1.0.9] - 5 February 2021
+
+* Add refresh override for api_base_state
+
 ## [1.0.8] - 14 November 2020
 
 * Add better support for web

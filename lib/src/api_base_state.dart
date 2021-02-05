@@ -68,10 +68,23 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
     return null;
   }
 
+  Future<ApiBaseState> refreshData() {
+    //Add refresh functionality in child
+    throw 'Not implemented';
+  }
+
   Future<ApiBaseState> dispatchLoadNewPage({int page = 1}) async {
     if (_loadingPage == page) return this;
     _loadingPage = page;
-    final state = await dispatch<LoadDataEvent, ApiBaseState>(loadPageEvent(page: page));
+
+    final event = loadPageEvent(page: page);
+
+    ApiBaseState state;
+    if (event != null) {
+      state = await dispatch<LoadDataEvent, ApiBaseState>(event);
+    } else {
+      state = await refreshData();
+    }
     state._loadingPage = 0;
     return state;
   }
