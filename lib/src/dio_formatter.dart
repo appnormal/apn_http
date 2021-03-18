@@ -40,7 +40,7 @@ class HttpFormatter extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.extra = <String, dynamic>{'start_time': DateTime.now().millisecondsSinceEpoch};
+    options.extra['start_time'] = DateTime.now().millisecondsSinceEpoch;
     handler.next(options);
   }
 
