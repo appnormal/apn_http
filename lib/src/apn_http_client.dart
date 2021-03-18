@@ -2,11 +2,11 @@ library apn_http;
 
 import 'package:apn_http/src/error_messages.dart';
 import 'package:dio/dio.dart';
-import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'dart:convert';
 import 'dart:io';
 
 typedef RestClientBuilder<T> = T Function(Dio dio);
@@ -39,7 +39,7 @@ class ApnHttpClient<T> {
 
     // * To enable mock adapters on testing
     if (adapter != null) {
-      dio.httpClientAdapter = adapter;
+      dio.httpClientAdapter = adapter!;
     }
 
     // * Logging on non production
@@ -52,7 +52,12 @@ class ApnHttpClient<T> {
       ));
     } else {
       dio.interceptors.add(PrettyDioLogger(
-          requestHeader: false, requestBody: false, responseBody: false, responseHeader: false, compact: true));
+        requestHeader: false,
+        requestBody: false,
+        responseBody: false,
+        responseHeader: false,
+        compact: true,
+      ));
     }
 
     // * Json decoding in the background via compute
@@ -106,4 +111,18 @@ class ApnHttpClient<T> {
   void setErrorMessages(Map<int, String> errorMessages) {
     dioErrorMessages = errorMessages;
   }
+}
+
+/// FlutterTransformer
+class FlutterTransformer extends DefaultTransformer {
+  FlutterTransformer() : super(jsonDecodeCallback: _parseJson);
+}
+
+// Must be top-level function
+_parseAndDecode(String response) {
+  return jsonDecode(response);
+}
+
+_parseJson(String text) {
+  return compute(_parseAndDecode, text);
 }

@@ -6,16 +6,19 @@ import 'models.dart';
 
 extension DioErrorExtension on DioError {
   ErrorResponse get toErrorResponse {
-    if (response != null) {
-      if (response.statusCode == 422) {
-        return ErrorResponse.fromMap(response.data);
-      }
+    final defaultError = ErrorResponse.fromMessage(dioErrorMessages[0]!);
+    if (response == null) return defaultError;
 
-      if (dioErrorMessages.containsKey(response.statusCode)) {
-        return ErrorResponse.fromMessage(dioErrorMessages[response.statusCode]!);
-      }
+    final resp = response!;
+
+    if (resp.statusCode == 422) {
+      return ErrorResponse.fromMap(resp.data);
     }
 
-    return ErrorResponse.fromMessage(dioErrorMessages[0]!);
+    if (dioErrorMessages.containsKey(resp.statusCode)) {
+      return ErrorResponse.fromMessage(dioErrorMessages[resp.statusCode]!);
+    }
+
+    return defaultError;
   }
 }

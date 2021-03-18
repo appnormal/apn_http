@@ -3,9 +3,6 @@
 // * More instructions at: https://github.com/leoafarias/fvm
 {
     "dart.flutterSdkPath": ".fvm/flutter_sdk",
-    "dart.flutterSdkPaths": [
-        ".fvm/flutter_sdk"
-    ],
     "search.exclude": {
         ".fvm/**/*": true,
     },

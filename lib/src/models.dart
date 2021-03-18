@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 @immutable
 class ErrorResponse {
@@ -31,7 +30,6 @@ class Error {
       );
 }
 
-@JsonSerializable(explicitToJson: true)
 @immutable
 class PaginationInfo {
   final int currentPage;

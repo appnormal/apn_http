@@ -1,4 +1,5 @@
 import 'package:apn_http/apn_http.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:apn_state/apn_state.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -31,16 +32,16 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
   @override
   ErrorResponse? convertError(error) {
     if (error is DioError) {
-      if (error.type == DioErrorType.CANCEL) {
+      if (error.type == DioErrorType.cancel) {
         return null; //Don't set an error when a call is cancelled
       }
       if (error.response?.statusCode == 401) {
         emit(UserShouldLogoutEvent());
       }
       return error.toErrorResponse;
-    } else if(kReleaseMode){
+    } else if (kReleaseMode) {
       return ErrorResponse.fromMessage('An unexpected error occured: $error');
-    } else{
+    } else {
       throw error;
     }
   }

@@ -1,4 +1,10 @@
-## [2.0.0-nullsafety] - 22 November 2020
+## [2.0.0-nullsafety-2] - 18 March 2021
+
+* Flutter 2.0 as min target
+* Updated dependencies
+* Removed outdated/deprecated depencendies
+
+## [2.0.0-nullsafety-1] - 22 November 2020
 
 * Changed package to be compatible with the new nullsafety features of dart 2.12
 
