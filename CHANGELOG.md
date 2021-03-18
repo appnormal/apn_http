@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety-3] - 18 March 2021
+
+* Update apn_state to new mayor version
+
 ## [2.0.0-nullsafety-2] - 18 March 2021
 
 * Flutter 2.0 as min target

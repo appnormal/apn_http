@@ -110,8 +110,8 @@ abstract class LoadDataEvent<V, T extends PageResponse<V>> extends ApiEvent<V> {
         state.data.clear();
       }
 
-      state.data += response.data;
-      state.paginationInfo = response.meta;
+      state.data += response?.data ?? [];
+      state.paginationInfo = response?.meta;
     } else if (state.paginationInfo != null) {
       state.paginationInfo = state.paginationInfo?.copyWith(
         lastPage: state.paginationInfo!.currentPage,
@@ -132,7 +132,7 @@ abstract class PageResponse<T> {
 
 class ApiResponse<T> {
   final CancelToken cancelToken;
-  final T data;
+  final T? data;
 
   ApiResponse({required this.cancelToken, required this.data});
 }
