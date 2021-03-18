@@ -65,7 +65,7 @@ class HttpFormatter extends Interceptor {
   ) {
     if (_httpLoggerFilter == null || _httpLoggerFilter!()) {
       final message = _prepareLog(err.requestOptions, err.response);
-      if (message != null && message != '') {
+      if (message != '') {
         _logger.e(message);
       }
     }
@@ -76,7 +76,7 @@ class HttpFormatter extends Interceptor {
   String _getBody(dynamic data, String? contentType) {
     if (contentType?.toLowerCase().contains('application/json') == true) {
       final encoder = JsonEncoder.withIndent('  ');
-      Map jsonBody;
+      Object jsonBody;
       if (data is String) {
         jsonBody = jsonDecode(data);
       } else {

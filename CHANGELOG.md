@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety-7] - 18 March 2021
+
+* Fix bug in dio_formatter regarding json decoding
+
 ## [2.0.0-nullsafety-6] - 18 March 2021
 
 * Fix bug in dio_formatter regarding extra fields
