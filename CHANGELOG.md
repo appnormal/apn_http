@@ -8,6 +8,10 @@
 * Updated dependencies
 * Removed outdated/deprecated depencendies
 
+## [1.0.9] - 5 February 2021
+
+* Add refresh override for api_base_state
+
 ## [2.0.0-nullsafety-1] - 22 November 2020
 
 * Changed package to be compatible with the new nullsafety features of dart 2.12
