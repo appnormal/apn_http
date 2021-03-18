@@ -1,10 +1,10 @@
 library apn_http;
 
+import 'package:apn_http/src/dio_formatter.dart';
 import 'package:apn_http/src/error_messages.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'dart:convert';
 import 'dart:io';
@@ -44,20 +44,7 @@ class ApnHttpClient<T> {
 
     // * Logging on non production
     if (isDebug) {
-      dio.interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: true,
-      ));
-    } else {
-      dio.interceptors.add(PrettyDioLogger(
-        requestHeader: false,
-        requestBody: false,
-        responseBody: false,
-        responseHeader: false,
-        compact: true,
-      ));
+      dio.interceptors.add(HttpFormatter());
     }
 
     // * Json decoding in the background via compute

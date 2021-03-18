@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety-5] - 18 March 2021
+
+* Replaced dio formatter with own implementation, dropped dependency
+
 ## [2.0.0-nullsafety-4] - 18 March 2021
 
 * Merge v1.0.9 functionality into v2.0
