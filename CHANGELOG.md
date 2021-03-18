@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety-4] - 18 March 2021
+
+* Merge v1.0.9 functionality into v2.0
+
 ## [2.0.0-nullsafety-3] - 18 March 2021
 
 * Update apn_state to new mayor version
