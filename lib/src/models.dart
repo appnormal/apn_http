@@ -16,6 +16,11 @@ class ErrorResponse {
     final error = Error(message: message, statusCode: 0);
     return ErrorResponse(error: error);
   }
+
+  @override
+  String toString() {
+    return "ErrorResponse!:\n\nStatuscode: ${error.statusCode}\n\nError: ${error.message}";
+  }
 }
 
 class Error {

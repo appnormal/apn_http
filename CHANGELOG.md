@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety-9] - 25 March 2021
+
+* Add ErrorMessage toString
+
 ## [2.0.0-nullsafety-8] - 25 March 2021
 
 * Upgrade dio to latest version
