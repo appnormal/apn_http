@@ -1,3 +1,7 @@
+## [2.0.0-nullsafety-8] - 25 March 2021
+
+* Upgrade dio to latest version
+
 ## [2.0.0-nullsafety-7] - 18 March 2021
 
 * Fix bug in dio_formatter regarding json decoding
