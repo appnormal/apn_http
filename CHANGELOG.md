@@ -1,3 +1,8 @@
+## [2.0.0] - 10 April 2021
+
+* Drop pre-release flag
+* Update to dio 4
+
 ## [2.0.0-nullsafety-9] - 25 March 2021
 
 * Add ErrorMessage toString

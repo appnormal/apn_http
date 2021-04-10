@@ -1,6 +1,6 @@
 name: apn_http
 description: An Appnormal package centered around providing tools for setting up http server calls.
-version: 2.0.0-nullsafety-9
+version: 2.0.0
 homepage: https://appnormal.com
 
 environment:
@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   apn_state: ^2.0.1
-  dio: ^4.0.0-prev3
+  dio: ^4.0.0
   logger: ^1.0.0
 
 dev_dependencies:
