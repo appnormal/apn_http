@@ -61,9 +61,9 @@ class ApnHttpClient<T> {
     dio.options.headers['Accept'] = 'application/json';
 
     if (!kIsWeb) {
-      // * Locale name is nl_NL (languageCode_countryCode)
+      // * Locale name is nl_NL (languageCode_countryCode) or sometimes only 'nl' (observed on iOS)
       final localeNameParts = Platform.localeName.split('_');
-      if (localeNameParts.length == 2) {
+      if (localeNameParts.isNotEmpty) {
         dio.options.headers['Accept-Language'] = localeNameParts[0].toLowerCase();
       }
     }

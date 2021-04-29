@@ -1,3 +1,7 @@
+## [2.0.1] - 29 April 2021
+
+* Fix Accept-Language flag on iOS
+
 ## [2.0.0] - 10 April 2021
 
 * Drop pre-release flag
