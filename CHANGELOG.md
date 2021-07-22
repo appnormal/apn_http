@@ -1,3 +1,6 @@
+## [2.0.2] - 22 July 2021
+
+* Fix bug in displaying FormData
 ## [2.0.1] - 29 April 2021
 
 * Fix Accept-Language flag on iOS

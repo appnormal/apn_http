@@ -77,7 +77,7 @@ class HttpFormatter extends Interceptor {
     if (contentType?.toLowerCase().contains('application/json') == true) {
       final encoder = JsonEncoder.withIndent('  ');
       Object jsonBody;
-      if (data is String) {
+      if (data is String && data.isNotEmpty){
         jsonBody = jsonDecode(data);
       } else {
         jsonBody = data;
@@ -103,7 +103,7 @@ class HttpFormatter extends Interceptor {
         }
       }
 
-      if (_includeRequestBody && requestOptions.data != null && requestOptions.data.isNotEmpty) {
+      if (_includeRequestBody && requestOptions.data != null) {
         requestString += '\n\n' + _getBody(requestOptions.data, requestOptions.contentType);
       }
 
