@@ -1,13 +1,11 @@
 library apn_http;
 
-import 'package:apn_http/src/dio_formatter.dart';
+import 'dart:io';
+
 import 'package:apn_http/src/error_messages.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-
-import 'dart:convert';
-import 'dart:io';
 
 typedef RestClientBuilder<T> = T Function(Dio dio);
 
@@ -20,7 +18,6 @@ class ApnHttpClient<T> {
 
   late T client;
 
-  HttpClientAdapter? adapter;
   ValueSetter<Dio>? onDioReady;
 
   ApnHttpClient({
@@ -29,26 +26,12 @@ class ApnHttpClient<T> {
     this.headers,
     this.isDebug = false,
     this.onDioReady,
-    this.adapter,
     Map<int, String>? errorMessages,
   }) {
     // * Add all custom errorMessages
     if (errorMessages != null) {
       dioErrorMessages.addEntries(errorMessages.entries);
     }
-
-    // * To enable mock adapters on testing
-    if (adapter != null) {
-      dio.httpClientAdapter = adapter!;
-    }
-
-    // * Logging on non production
-    if (isDebug) {
-      dio.interceptors.add(HttpFormatter());
-    }
-
-    // * Json decoding in the background via compute
-    dio.transformer = FlutterTransformer();
 
     // * Base URL
     dio.options.baseUrl = baseUrl;
@@ -98,18 +81,4 @@ class ApnHttpClient<T> {
   void setErrorMessages(Map<int, String> errorMessages) {
     dioErrorMessages = errorMessages;
   }
-}
-
-/// FlutterTransformer
-class FlutterTransformer extends DefaultTransformer {
-  FlutterTransformer() : super(jsonDecodeCallback: _parseJson);
-}
-
-// Must be top-level function
-_parseAndDecode(String response) {
-  return jsonDecode(response);
-}
-
-_parseJson(String text) {
-  return compute(_parseAndDecode, text);
 }
