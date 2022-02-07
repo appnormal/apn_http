@@ -1,3 +1,7 @@
+## [2.0.4] - 7 February 2022
+
+* Update apn_state dependency
+
 ## [2.0.3] - 15 Oct 2021
 
 * Don't use isolate to transform json (performance loss somehow)

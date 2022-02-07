@@ -5,7 +5,6 @@ import 'dart:io';
 import 'package:apn_http/src/error_messages.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
 
 typedef RestClientBuilder<T> = T Function(Dio dio);
 
