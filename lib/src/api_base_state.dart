@@ -35,9 +35,7 @@ abstract class ApiBaseState<T> extends BaseState<ErrorResponse> {
       if (error.type == DioErrorType.cancel) {
         return null; //Don't set an error when a call is cancelled
       }
-      if (error.response?.statusCode == 401) {
-        emit(UserShouldLogoutEvent());
-      }
+
       return error.toErrorResponse;
     } else if (kReleaseMode) {
       return ErrorResponse.fromMessage('An unexpected error occured: $error');
@@ -146,5 +144,3 @@ class ApiResponse<T> {
 }
 
 typedef CancellableApiCall<T> = Future<T> Function(CancelToken cancelToken);
-
-class UserShouldLogoutEvent extends EventBusEvent {}

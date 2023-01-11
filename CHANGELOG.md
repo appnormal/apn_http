@@ -1,3 +1,8 @@
+## [3.0.0] - 11 January 2023
+
+* Remove eventbus functionality
+* Pin apn_state to version 3
+
 ## [2.0.4] - 7 February 2022
 
 * Update apn_state dependency
