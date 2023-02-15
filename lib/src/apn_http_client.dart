@@ -36,8 +36,8 @@ class ApnHttpClient<T> {
     dio.options.baseUrl = baseUrl;
 
     // * Timeouts
-    dio.options.connectTimeout = 10000;
-    dio.options.receiveTimeout = 20000;
+    dio.options.connectTimeout = Duration(seconds: 10);
+    dio.options.receiveTimeout = Duration(seconds: 20);
 
     // * Default headers
     dio.options.headers['Accept'] = 'application/json';

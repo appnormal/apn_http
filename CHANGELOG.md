@@ -1,3 +1,7 @@
+## [3.0.1] - 15 February 2023
+
+* Set dio dependency to 5.x
+
 ## [3.0.0] - 11 January 2023
 
 * Remove eventbus functionality
